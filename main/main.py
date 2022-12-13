@@ -76,11 +76,11 @@ class BSPDE:
                 self.pricePDE[j, i] = self.pricePDE[j, i - 1] - dt * rhs
 
         # Interpolation function of the PDE solution
-        self.PDEPriceInterpolater = interpolate.interp2d(self.tGrid[0, :], self.sGrid[:, 0], self.pricePDE,
+        self.PDEPriceInterpolator = interpolate.interp2d(self.tGrid[0, :], self.sGrid[:, 0], self.pricePDE,
                                                          kind='linear')
 
     def getPDEprice(self, spot, time):
-        p = self.PDEPriceInterpolater(time, spot)
+        p = self.PDEPriceInterpolator(time, spot)
         return (p)
 
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         ax.legend(['Analytical','PDE (FTCS)'])
         ax.set_xlabel('Spot', fontweight ='bold')
         ax.set_ylabel('Option Value', fontweight ='bold')
-        ax.set_title('European Call, PDE', fontsize = 14, fontweight ='bold')
+        ax.set_title('European Call, Strike=100', fontsize = 14, fontweight ='bold')
         ax.grid(True)
     
     fig.savefig('../Results/Plots/EuropeanCallPDE.pdf')
